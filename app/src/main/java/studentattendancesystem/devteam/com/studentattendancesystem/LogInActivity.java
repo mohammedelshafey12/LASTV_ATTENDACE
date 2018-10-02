@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class LogInActivity extends AppCompatActivity {
     TextView LogInTxt;
-    Button LogInBtn;
+    Button LogInBtn,AddStudentBtn;
     String LogInTextViewText;
     DBconnections StudentsDB;
 
@@ -19,18 +19,23 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
 
         LogInBtn = (Button)findViewById(R.id.LogInBtn);
-
+        AddStudentBtn = (Button)findViewById(R.id.AddStudentBtn);
         LogInTxt = (TextView)findViewById(R.id.LogInTxt);
 
         LogInTextViewText = LogInTxt.getText().toString().trim();
 
-
+        AddStudentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LogInActivity.this,AddStudentToDB.class));
+            }
+        });
 
         LogInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //StudentsDB.insertRowStudent(LogInTextViewText);
-                startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                startActivity(new Intent(getApplicationContext(),Scan_Activity.class));
             }
         });
 
