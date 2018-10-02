@@ -1,98 +1,99 @@
 package studentattendancesystem.devteam.com.studentattendancesystem;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import static android.content.ContentValues.TAG;
 
-public class Students_db extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION=1;
-    private static final String DATABASE_NAME="Student.db";
-    private static final String TABLE_STUDENT="students";
-    private static final String COLOUM_ID="_id";
-    private static final String COLOUM_STUDENTID="Student_id";
-    private static final String COLOUM_STUDENT_NAME="Student_Name";
-
-    public Students_db(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+public class Students_db {
+    myDbHelper myhelper;
+    public Students_db(Context context)
+    {
+        myhelper = new myDbHelper(context);
     }
 
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-       String query = " CREATE TABLE " + TABLE_STUDENT + " ( " + COLOUM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLOUM_STUDENTID + "TEXT" + COLOUM_STUDENT_NAME + "TEXT" +  " ); ";
-       db.execSQL(query);
+    public long insertData(String name, String pass)
+    {
+        SQLiteDatabase dbb = myhelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(myDbHelper.NAME, name);
+        contentValues.put(myDbHelper.ID, pass);
+        long id = dbb.insert(myDbHelper.TABLE_NAME, null , contentValues);
+        return id;
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-      db.execSQL(" DROP TABLE IF EXISTS " + TABLE_STUDENT);
-      onCreate(db);
+    public String getData()
+    {
+        SQLiteDatabase db = myhelper.getWritableDatabase();
+        String[] columns = {myDbHelper.UID,myDbHelper.NAME,myDbHelper.ID};
+        Cursor cursor =db.query(myDbHelper.TABLE_NAME,columns,null,null,null,null,null);
+        StringBuffer buffer= new StringBuffer();
+        while (cursor.moveToNext())
+        {
+            int cid =cursor.getInt(cursor.getColumnIndex(myDbHelper.UID));
+            String name =cursor.getString(cursor.getColumnIndex(myDbHelper.NAME));
+            String  password =cursor.getString(cursor.getColumnIndex(myDbHelper.ID));
+            buffer.append(cid+ "   " + name + "   " + password +" \n");
+        }
+        return buffer.toString();
     }
-    public void addstudent (students students){
-        ContentValues values = new ContentValues();
-        values.put(COLOUM_STUDENTID , students.getMstudent_id());
-        SQLiteDatabase db = getWritableDatabase();
-        db.insert(TABLE_STUDENT,null,values);
-        db.close();
+
+    public  int delete(String uname)
+    {
+        SQLiteDatabase db = myhelper.getWritableDatabase();
+        String[] whereArgs ={uname};
+
+        int count =db.delete(myDbHelper.TABLE_NAME ,myDbHelper.NAME+" = ?",whereArgs);
+        return  count;
     }
 
-    public boolean check_login(String u_name, String u_pwd) {
+    public int updateName(String oldName , String newName)
+    {
+        SQLiteDatabase db = myhelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(myDbHelper.NAME,newName);
+        String[] whereArgs= {oldName};
+        int count =db.update(myDbHelper.TABLE_NAME,contentValues, myDbHelper.NAME+" = ?",whereArgs );
+        return count;
+    }
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        String select = "SELECT * FROM students WHERE Student_Name ='" + u_name + "' AND Student_id='" + u_pwd + "'";
+    static class myDbHelper extends SQLiteOpenHelper
+    {
+        private static final String DATABASE_NAME = "myDatabase";    // Database Name
+        private static final String TABLE_NAME = "myTable";   // Table Name
+        private static final int DATABASE_Version = 1;    // Database Version
+        private static final String UID="_id";     // Column I (Primary Key)
+        private static final String NAME = "Name";    //Column II
+        private static final String ID = "StudentID";    // Column III
+        private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+
+                " ("+UID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME+" VARCHAR(255) ,"+ ID +" VARCHAR(225));";
+        private static final String DROP_TABLE ="DROP TABLE IF EXISTS "+TABLE_NAME;
+        private Context context;
 
-        Cursor c = db.rawQuery(select, null);
-
-        if (c.moveToFirst()) {
-            Log.d(TAG,"User exits");
-            return true;
+        public myDbHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_Version);
+            this.context=context;
         }
 
-        if(c!=null) {
-            c.close();
-        }
-        db.close();
-        return false;
-    }
-    public String getID(String u_name, String u_pwd) {
+        public void onCreate(SQLiteDatabase db) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        String select = "SELECT * FROM students WHERE Student_Name ='" + u_name + "' AND Student_id='" + u_pwd + "'";
-        String ID = "";
-        Cursor c = db.rawQuery(select, null);
-        c.moveToFirst();
+            try {
+                db.execSQL(CREATE_TABLE);
+            } catch (Exception e) {
 
-        while (!c.isAfterLast()){
-            if(c.getString(c.getColumnIndex("Student_id")) != null){
-               ID += c.getString(c.getColumnIndex("Student_id"));
-               ID += "\n";
             }
-            c.moveToNext();
         }
-        return ID;
-    }
 
-    public String getName (String u_name, String u_pwd) {
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            try {
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        String select = "SELECT * FROM students WHERE Student_Name ='" + u_name + "' AND Student_id='" + u_pwd + "'";
-        String ID = "";
-        Cursor c = db.rawQuery(select, null);
-        c.moveToFirst();
+                db.execSQL(DROP_TABLE);
+                onCreate(db);
+            }catch (Exception e) {
 
-        while (!c.isAfterLast()){
-            if(c.getString(c.getColumnIndex("Student_id")) != null){
-                ID += c.getString(c.getColumnIndex("Student_Name"));
-                ID += "\n";
             }
-            c.moveToNext();
         }
-        return ID;
     }
-
 }

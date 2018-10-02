@@ -8,13 +8,11 @@ import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
     Students_db students_db;
-    SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
 
 
         final TextView textView = (TextView)findViewById(R.id.TextViewHome);
@@ -22,12 +20,13 @@ public class HomeActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(students_db.check_login("Ahmed Fathy","1234")){
-                    textView.setText(students_db.getName("Ahmed Fathy","1234"));
-
-                }
+                String data = students_db.getData();
+                textView.setText(data);
             }
         });
+
+
+
 
     }
 
