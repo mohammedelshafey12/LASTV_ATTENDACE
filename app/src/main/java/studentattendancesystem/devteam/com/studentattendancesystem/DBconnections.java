@@ -6,46 +6,66 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 public class DBconnections extends SQLiteOpenHelper{
-    public final static  String DATABASE_NAME = "studens_db";
-    public final static  int VERSION = 1;
+    public static String DATABASE_NAME = "student_database";
+    private static final int DATABASE_VERSION = 1;
+    private static final String TABLE_STUDENTS = "students";
+    private static final String KEY_ID = "id";
+    private static final String KEY_FIRSTNAME = "name";
+
+    /*CREATE TABLE students ( id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, phone_number TEXT......);*/
+
+    private static final String CREATE_TABLE_STUDENTS = "CREATE TABLE "
+            + TABLE_STUDENTS + "(" + KEY_ID
+            + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_FIRSTNAME + " TEXT );";
+
     public DBconnections(Context context) {
-        super(context, DATABASE_NAME, null, VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
+        Log.d("table", CREATE_TABLE_STUDENTS);
     }
-
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table if not exists students (id INTEGER primary key, name TEXT)");
+        db.execSQL(CREATE_TABLE_STUDENTS);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("Drop table if exists studens");
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_STUDENTS + "'");
         onCreate(db);
     }
 
-    public void insertRowStudent(String name){
+    public long addStudentDetail(String student) {
         SQLiteDatabase db = this.getWritableDatabase();
+        // Creating content values
         ContentValues values = new ContentValues();
+        values.put(KEY_FIRSTNAME, student);
+        // insert row in students table
+        long insert = db.insert(TABLE_STUDENTS, null, values);
 
-        values.put("name",name);
-        db.insert("students",null,values);
-
+        return insert;
     }
-    public ArrayList getAllData(){
-        ArrayList arrayList = new ArrayList();
+
+    public ArrayList<String> getAllStudentsList() {
+        ArrayList<String> studentsArrayList = new ArrayList<String>();
+        String name="";
+        String selectQuery = "SELECT  * FROM " + TABLE_STUDENTS;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from students",null);
-        res.moveToFirst();
-        while(res.isAfterLast()==false){
-            arrayList.add(res.getString(res.getColumnIndex("name")));
-            res.moveToNext();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                name = c.getString(c.getColumnIndex(KEY_FIRSTNAME));
+                // adding to Students list
+                studentsArrayList.add(name);
+            } while (c.moveToNext());
+            Log.d("array", studentsArrayList.toString());
         }
-        return arrayList;
+        return studentsArrayList;
     }
 }

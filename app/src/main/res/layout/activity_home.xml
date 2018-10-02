@@ -7,20 +7,55 @@
     android:layout_gravity="right|fill_vertical|fill_horizontal"
     tools:context=".HomeActivity">
 
-    <ListView
-        android:id="@+id/TextViewHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="try"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorAccent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:text="Enter Name to store in SQLite" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/etname"
+            android:background="#fff"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:hint="Enter Name"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnstore"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Store"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnget"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Get All Names from SQLite"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvnames"
+            android:layout_marginLeft="10dp"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:text="Enter Name to store in SQLite" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
