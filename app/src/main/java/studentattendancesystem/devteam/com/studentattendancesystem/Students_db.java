@@ -2,8 +2,12 @@ package studentattendancesystem.devteam.com.studentattendancesystem;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import static android.content.ContentValues.TAG;
 
 public class Students_db extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION=1;
@@ -37,6 +41,58 @@ public class Students_db extends SQLiteOpenHelper {
         db.close();
     }
 
+    public boolean check_login(String u_name, String u_pwd) {
 
+        SQLiteDatabase db = this.getWritableDatabase();
+        String select = "SELECT * FROM students WHERE Student_Name ='" + u_name + "' AND Student_id='" + u_pwd + "'";
+
+        Cursor c = db.rawQuery(select, null);
+
+        if (c.moveToFirst()) {
+            Log.d(TAG,"User exits");
+            return true;
+        }
+
+        if(c!=null) {
+            c.close();
+        }
+        db.close();
+        return false;
+    }
+    public String getID(String u_name, String u_pwd) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String select = "SELECT * FROM students WHERE Student_Name ='" + u_name + "' AND Student_id='" + u_pwd + "'";
+        String ID = "";
+        Cursor c = db.rawQuery(select, null);
+        c.moveToFirst();
+
+        while (!c.isAfterLast()){
+            if(c.getString(c.getColumnIndex("Student_id")) != null){
+               ID += c.getString(c.getColumnIndex("Student_id"));
+               ID += "\n";
+            }
+            c.moveToNext();
+        }
+        return ID;
+    }
+
+    public String getName (String u_name, String u_pwd) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String select = "SELECT * FROM students WHERE Student_Name ='" + u_name + "' AND Student_id='" + u_pwd + "'";
+        String ID = "";
+        Cursor c = db.rawQuery(select, null);
+        c.moveToFirst();
+
+        while (!c.isAfterLast()){
+            if(c.getString(c.getColumnIndex("Student_id")) != null){
+                ID += c.getString(c.getColumnIndex("Student_Name"));
+                ID += "\n";
+            }
+            c.moveToNext();
+        }
+        return ID;
+    }
 
 }

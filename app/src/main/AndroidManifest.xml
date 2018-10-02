@@ -19,6 +19,7 @@
         <activity
             android:name=".LogInActivity"
             android:theme="@style/SplashTheme" />
+        <activity android:name=".HomeActivity"></activity>
     </application>
 
 </manifest>

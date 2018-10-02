@@ -1,5 +1,6 @@
 package studentattendancesystem.devteam.com.studentattendancesystem;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,11 +26,12 @@ public class LogInActivity extends AppCompatActivity {
         LogInTextViewText = LogInTxt.getText().toString().trim();
 
 
-        db = StudentsDB.getWritableDatabase();
+
         LogInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+             StudentsDB.addstudent(new students(LogInTextViewText,"Ahmed Fathy"));
+                startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
         });
 
