@@ -31,7 +31,7 @@ public class LogInActivity extends AppCompatActivity {
         LogInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StudentsDB.insertData("Ahmed Fathy","1234");
+              Long id =   StudentsDB.insertData("Ahmed Fathy","1234");
                 startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
         });
