@@ -1,8 +1,6 @@
 package studentattendancesystem.devteam.com.studentattendancesystem;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +11,7 @@ public class LogInActivity extends AppCompatActivity {
     TextView LogInTxt;
     Button LogInBtn;
     String LogInTextViewText;
-    Students_db StudentsDB;
+    DBconnections StudentsDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +29,7 @@ public class LogInActivity extends AppCompatActivity {
         LogInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              Long id =   StudentsDB.insertData("Ahmed Fathy","1234");
+                Long id =   StudentsDB.insertData("Ahmed Fathy","1234");
                 startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
         });

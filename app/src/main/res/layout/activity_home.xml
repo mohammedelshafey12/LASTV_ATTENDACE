@@ -7,7 +7,7 @@
     android:layout_gravity="right|fill_vertical|fill_horizontal"
     tools:context=".HomeActivity">
 
-    <TextView
+    <ListView
         android:id="@+id/TextViewHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
