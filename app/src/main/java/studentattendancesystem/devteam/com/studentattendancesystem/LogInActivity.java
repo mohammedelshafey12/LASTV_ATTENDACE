@@ -29,7 +29,7 @@ public class LogInActivity extends AppCompatActivity {
         LogInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StudentsDB.insertRowStudent(LogInTextViewText);
+                //StudentsDB.insertRowStudent(LogInTextViewText);
                 startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
         });

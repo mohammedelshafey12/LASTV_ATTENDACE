@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 arrayList = dBconnections.getAllStudentsList();
                 tvnames.setText("");
+                Toast.makeText(HomeActivity.this, ""+arrayList.get(0), Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < arrayList.size(); i++){
                     tvnames.setText(tvnames.getText().toString()+", "+arrayList.get(i));
                 }
