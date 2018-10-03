@@ -36,9 +36,9 @@ public class HomeActivity extends AppCompatActivity {
         btnStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dBconnections.addStudentDetail(etname.getText().toString());
+                dBconnections.addStudentDetail(etname.getText().toString(),"");
                 etname.setText("");
-                Toast.makeText(HomeActivity.this, "Stored Successfully!", Toast.LENGTH_SHORT).show();
+
             }
         });
         btnGetall.setOnClickListener(new View.OnClickListener() {

@@ -14,14 +14,14 @@ public class DBconnections extends SQLiteOpenHelper{
     public static String DATABASE_NAME = "student_database";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_STUDENTS = "students";
-    private static final String KEY_ID = "id";
+    private static final String KEY_ID = "_id";
     private static final String KEY_FIRSTNAME = "name";
-
+    private static final String KEY_STUDENT_ID = "id";
     /*CREATE TABLE students ( id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, phone_number TEXT......);*/
 
     private static final String CREATE_TABLE_STUDENTS = "CREATE TABLE "
             + TABLE_STUDENTS + "(" + KEY_ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_FIRSTNAME + " TEXT );";
+            + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_STUDENT_ID +"TEXT" + KEY_FIRSTNAME + " TEXT );";
 
     public DBconnections(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,11 +40,12 @@ public class DBconnections extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public long addStudentDetail(String student) {
+    public long addStudentDetail(String student_id,String student_name) {
         SQLiteDatabase db = this.getWritableDatabase();
         // Creating content values
         ContentValues values = new ContentValues();
-        values.put(KEY_FIRSTNAME, student);
+        values.put(KEY_FIRSTNAME, student_id);
+        values.put(KEY_FIRSTNAME, student_name);
         // insert row in students table
         long insert = db.insert(TABLE_STUDENTS, null, values);
 
