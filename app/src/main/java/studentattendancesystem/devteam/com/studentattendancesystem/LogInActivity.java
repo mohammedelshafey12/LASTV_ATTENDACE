@@ -18,7 +18,7 @@ public class LogInActivity extends AppCompatActivity {
     Button LogInBtn,AddStudentBtn;
     String LogInTextViewText;
     DBconnections StudentsDB;
-    ArrayList<String> studentsList;
+    ArrayList<students> studentsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +48,15 @@ public class LogInActivity extends AppCompatActivity {
         LogInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               studentsList =  StudentsDB.getAllStudentsList();
-//                for (int i = 0; i <studentsList.size() ; i++) {
-//                    if(LogInTextViewText.equalsIgnoreCase(studentsList.get(i).getMstudent_id())){
-//                        Toast.makeText(LogInActivity.this, ""+studentsList.get(i).getMstudent_id()+"\n" , Toast.LENGTH_SHORT).show();
-//                        startActivity(new Intent(getApplicationContext(),Scan_Activity.class));
-//                        setFirstTimeStartStatus(false);
-//
-//                    }
-
+                studentsList = StudentsDB.getAllStudentsList();
                 for (int i = 0; i <studentsList.size() ; i++) {
-                    Toast.makeText(LogInActivity.this, ""+studentsList.get(i), Toast.LENGTH_SHORT).show();
-                    try {
-                        Thread.sleep(1000,1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                  if(LogInTextViewText.equals(studentsList.get(i).getMstudent_id().toString().trim())){
+                      Toast.makeText(LogInActivity.this, "True", Toast.LENGTH_SHORT).show();
+                  }else{
+                      Toast.makeText(LogInActivity.this, "False " + studentsList.get(i).getMstudent_id(), Toast.LENGTH_SHORT).show();
+                  }
                 }
+
 
             }
         });

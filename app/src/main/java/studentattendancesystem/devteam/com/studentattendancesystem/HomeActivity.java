@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
+        arrayList = new ArrayList();
         dBconnections = new DBconnections(this);
         tvnames = (TextView) findViewById(R.id.tvnames);
         Button btnStore = (Button) findViewById(R.id.btnstore);
@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         btnStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dBconnections.addStudentDetail(etname.getText().toString(),"");
+                dBconnections.addStudentDetail(etname.getText().toString(),"1234");
                 etname.setText("");
 
             }
@@ -43,10 +43,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 arrayList = dBconnections.getAllStudentsList();
                 tvnames.setText("");
-                Toast.makeText(HomeActivity.this, ""+arrayList.get(0), Toast.LENGTH_SHORT).show();
-                for (int i = 0; i < arrayList.size(); i++){
-                    tvnames.setText(tvnames.getText().toString()+", "+arrayList.get(i));
-                }
+
+
             }
         });
         //==========================================================================================
