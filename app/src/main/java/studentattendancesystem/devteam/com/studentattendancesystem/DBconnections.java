@@ -39,7 +39,7 @@ public class DBconnections extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_STUDENTS + "'");
         onCreate(db);
     }
-
+    //==========================================================================================
     public long addStudentDetail(String student_id,String student_name) {
         SQLiteDatabase db = this.getWritableDatabase();
         // Creating content values
@@ -52,9 +52,10 @@ public class DBconnections extends SQLiteOpenHelper{
         return insert;
     }
 
-    public ArrayList<String> getAllStudentsList() {
-        ArrayList<String> studentsArrayList = new ArrayList<String>();
+    public ArrayList<students> getAllStudentsList() {
+        ArrayList<students> studentsArrayList = new ArrayList<students>();
         String name="";
+        String ID ="";
         String selectQuery = "SELECT  * FROM " + TABLE_STUDENTS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
@@ -62,11 +63,14 @@ public class DBconnections extends SQLiteOpenHelper{
         if (c.moveToFirst()) {
             do {
                 name = c.getString(c.getColumnIndex(KEY_FIRSTNAME));
+                ID = c.getString(c.getColumnIndex(KEY_STUDENT_ID));
                 // adding to Students list
-                studentsArrayList.add(name);
+
+                studentsArrayList.add(new students(ID,name));
             } while (c.moveToNext());
             Log.d("array", studentsArrayList.toString());
         }
         return studentsArrayList;
     }
+    //==========================================================================================
 }

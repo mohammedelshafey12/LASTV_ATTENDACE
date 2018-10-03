@@ -25,14 +25,11 @@ public class HomeActivity extends AppCompatActivity {
 
 
         dBconnections = new DBconnections(this);
-
         tvnames = (TextView) findViewById(R.id.tvnames);
-
         Button btnStore = (Button) findViewById(R.id.btnstore);
         Button btnGetall = (Button) findViewById(R.id.btnget);
-
         etname = (EditText) findViewById(R.id.etname);
-
+        //==========================================================================================
         btnStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+        //==========================================================================================
     }
 
 }

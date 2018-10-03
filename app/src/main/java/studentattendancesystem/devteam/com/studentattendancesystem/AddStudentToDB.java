@@ -19,7 +19,8 @@ public class AddStudentToDB extends AppCompatActivity {
         Name = (EditText)findViewById(R.id.StudentName);
         ID = (EditText)findViewById(R.id.StudentID);
         AddButton = (Button)findViewById(R.id.AddButton);
-
+        dBconnections = new DBconnections(this);
+        //==========================================================================================
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,5 +34,6 @@ public class AddStudentToDB extends AppCompatActivity {
                 }
             }
         });
+        //==========================================================================================
     }
 }
