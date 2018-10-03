@@ -21,7 +21,7 @@
             android:theme="@style/SplashTheme" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".AddStudentToDB" />
-        <activity android:name=".Scan_Activity"></activity>
+        <activity android:name=".Scan_Activity" android:parentActivityName=".HomeActivity"></activity>
     </application>
 
 </manifest>

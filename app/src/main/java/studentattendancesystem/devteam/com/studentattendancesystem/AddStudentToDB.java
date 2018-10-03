@@ -25,8 +25,8 @@ public class AddStudentToDB extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!Name.getText().toString().trim().isEmpty() && !ID.getText().toString().trim().isEmpty() ) {
-                    dBconnections.addStudentDetail(ID.getText().toString().trim(),Name.getText().toString().trim());
-                    Toast.makeText(AddStudentToDB.this, "Stored Successfully!", Toast.LENGTH_SHORT).show();
+                    Long success = dBconnections.addStudentDetail(ID.getText().toString(),Name.getText().toString());
+                    Toast.makeText(AddStudentToDB.this, "Stored Successfully!" + success, Toast.LENGTH_SHORT).show();
                     Name.setText("");
                     ID.setText("");
                 }else{

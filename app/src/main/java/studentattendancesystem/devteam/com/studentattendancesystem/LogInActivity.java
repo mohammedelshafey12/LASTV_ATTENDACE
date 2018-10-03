@@ -12,11 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LogInActivity extends AppCompatActivity {
-    EditText LogInTxt;
+    EditText LogInEditText;
     Button LogInBtn,AddStudentBtn;
-    String LogInTextViewText;
+
     DBconnections StudentsDB;
     ArrayList<students> studentsList;
 
@@ -33,10 +34,11 @@ public class LogInActivity extends AppCompatActivity {
         //==========================================================================================
         LogInBtn = (Button)findViewById(R.id.LogInBtn);
         AddStudentBtn = (Button)findViewById(R.id.AddStudentBtn);
-        LogInTxt = (EditText) findViewById(R.id.LogInTxt);
+        LogInEditText = (EditText) findViewById(R.id.EditText);
         StudentsDB = new DBconnections(this);
         studentsList = new ArrayList<>();
-        LogInTextViewText = LogInTxt.getText().toString().trim();
+        studentsList = StudentsDB.getAllStudentsList();
+
         //==========================================================================================
         AddStudentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,33 +50,31 @@ public class LogInActivity extends AppCompatActivity {
         LogInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                studentsList = StudentsDB.getAllStudentsList();
+                String LogInTextViewText = LogInEditText.getText().toString().trim();
                 for (int i = 0; i <studentsList.size() ; i++) {
-                  if(LogInTextViewText.equals(studentsList.get(i).getMstudent_id().toString().trim())){
-                      Toast.makeText(LogInActivity.this, "True", Toast.LENGTH_SHORT).show();
-                  }else{
-                      Toast.makeText(LogInActivity.this, "False " + studentsList.get(i).getMstudent_id(), Toast.LENGTH_SHORT).show();
-                  }
-                }
+                    if(Objects.equals(LogInTextViewText, studentsList.get(i).getMstudent_id().toString())){ // --> true)){
 
+                        Toast.makeText(LogInActivity.this, "We found you in DataBase", Toast.LENGTH_SHORT).show();
+                        setFirstTimeStartStatus(false);
+                        startActivity(new Intent(LogInActivity.this,Scan_Activity.class));
+                    }else{
+                        Toast.makeText(LogInActivity.this, "false  \n"+LogInTextViewText + " \n" + studentsList.get(i).getmStudentNmae().toString() + " \n"+ studentsList.get(i).getMstudent_id().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
 
             }
         });
-
     }
         //==========================================================================================
         private boolean isFirstTimeStartApp(){
             SharedPreferences pref = getApplicationContext().getSharedPreferences("LogInActivity", Context.MODE_PRIVATE);
-
             return pref.getBoolean("FirstTimeStartFlag",true);
-
         }
         private void setFirstTimeStartStatus(boolean stt){
             SharedPreferences pref = getApplicationContext().getSharedPreferences("LogInActivity", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = pref.edit();
             editor.putBoolean("FirstTimeStartFlag",stt);
             editor.commit();
-
         }
         //==========================================================================================
 }
