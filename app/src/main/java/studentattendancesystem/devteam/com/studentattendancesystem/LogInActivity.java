@@ -49,12 +49,20 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                studentsList =  StudentsDB.getAllStudentsList();
-                for (int i = 0; i <studentsList.size() ; i++) {
-                    if(LogInTextViewText.equalsIgnoreCase(studentsList.get(i).getMstudent_id())){
-                        Toast.makeText(LogInActivity.this, ""+studentsList.get(i).getMstudent_id()+"\n" , Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(),Scan_Activity.class));
-                        setFirstTimeStartStatus(false);
+//                for (int i = 0; i <studentsList.size() ; i++) {
+//                    if(LogInTextViewText.equalsIgnoreCase(studentsList.get(i).getMstudent_id())){
+//                        Toast.makeText(LogInActivity.this, ""+studentsList.get(i).getMstudent_id()+"\n" , Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(getApplicationContext(),Scan_Activity.class));
+//                        setFirstTimeStartStatus(false);
+//
+//                    }
 
+                for (int i = 0; i <studentsList.size() ; i++) {
+                    Toast.makeText(LogInActivity.this, ""+studentsList.get(i).getmStudentNmae(), Toast.LENGTH_SHORT).show();
+                    try {
+                        Thread.sleep(1000,1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
 
