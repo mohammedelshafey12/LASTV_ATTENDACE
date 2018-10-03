@@ -51,12 +51,13 @@ public class LogInActivity extends AppCompatActivity {
                studentsList =  StudentsDB.getAllStudentsList();
                 for (int i = 0; i <studentsList.size() ; i++) {
                     if(LogInTextViewText.equalsIgnoreCase(studentsList.get(i).getMstudent_id())){
-                        Toast.makeText(LogInActivity.this, "We found you in DataBase " , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LogInActivity.this, ""+studentsList.get(i).getMstudent_id()+"\n" , Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(),Scan_Activity.class));
                         setFirstTimeStartStatus(false);
 
                     }
                 }
-                startActivity(new Intent(getApplicationContext(),Scan_Activity.class));
+
             }
         });
 
