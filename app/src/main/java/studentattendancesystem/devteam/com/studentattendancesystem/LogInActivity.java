@@ -18,7 +18,7 @@ public class LogInActivity extends AppCompatActivity {
     Button LogInBtn,AddStudentBtn;
     String LogInTextViewText;
     DBconnections StudentsDB;
-    ArrayList<students> studentsList;
+    ArrayList<String> studentsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class LogInActivity extends AppCompatActivity {
 //                    }
 
                 for (int i = 0; i <studentsList.size() ; i++) {
-                    Toast.makeText(LogInActivity.this, ""+studentsList.get(i).getmStudentNmae(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LogInActivity.this, ""+studentsList.get(i), Toast.LENGTH_SHORT).show();
                     try {
                         Thread.sleep(1000,1);
                     } catch (InterruptedException e) {

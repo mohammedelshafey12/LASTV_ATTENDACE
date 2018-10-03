@@ -52,8 +52,8 @@ public class DBconnections extends SQLiteOpenHelper{
         return insert;
     }
 
-    public ArrayList<students> getAllStudentsList() {
-        ArrayList<students> studentsArrayList = new ArrayList<students>();
+    public ArrayList<String> getAllStudentsList() {
+        ArrayList<String> studentsArrayList = new ArrayList<String>();
         String name="";
         String ID ="";
         String selectQuery = "SELECT  * FROM " + TABLE_STUDENTS;
@@ -66,7 +66,7 @@ public class DBconnections extends SQLiteOpenHelper{
                 ID = c.getString(c.getColumnIndex(KEY_STUDENT_ID));
                 // adding to Students list
 
-                studentsArrayList.add(new students(ID,name));
+                studentsArrayList.add(ID);
             } while (c.moveToNext());
             Log.d("array", studentsArrayList.toString());
         }
