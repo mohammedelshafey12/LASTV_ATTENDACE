@@ -11,6 +11,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class DBconnections extends SQLiteOpenHelper{
+
     public static String DATABASE_NAME = "student_database";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_STUDENTS = "students";
@@ -56,7 +57,7 @@ public class DBconnections extends SQLiteOpenHelper{
         ArrayList<students> studentsArrayList = new ArrayList<students>();
         String name="";
         String ID ="";
-        String selectQuery = "SELECT  * FROM " + TABLE_STUDENTS;
+        String selectQuery = " SELECT  * FROM " + TABLE_STUDENTS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
