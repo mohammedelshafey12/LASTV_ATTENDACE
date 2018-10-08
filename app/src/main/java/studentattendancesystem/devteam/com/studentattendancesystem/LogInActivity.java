@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class LogInActivity extends AppCompatActivity {
     EditText LogInEditText;
-    Button LogInBtn,AddStudentBtn;
+    Button LogInBtn, AddStudentBtn;
 
     DBconnections StudentsDB;
     ArrayList<students> studentsList;
@@ -25,15 +25,15 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        if(!isFirstTimeStartApp()){
+        if (!isFirstTimeStartApp()) {
             //if not the first time to open the app --> go to home activity directly
             setFirstTimeStartStatus(false);
-            startActivity(new Intent(this,Scan_Activity.class));
+            startActivity(new Intent(this, Scan_Activity.class));
             finish();
         }
         //==========================================================================================
-        LogInBtn = (Button)findViewById(R.id.LogInBtn);
-        AddStudentBtn = (Button)findViewById(R.id.AddStudentBtn);
+        LogInBtn = (Button) findViewById(R.id.LogInBtn);
+        AddStudentBtn = (Button) findViewById(R.id.AddStudentBtn);
         LogInEditText = (EditText) findViewById(R.id.EditText);
         StudentsDB = new DBconnections(this);
         studentsList = new ArrayList<>();
@@ -43,7 +43,7 @@ public class LogInActivity extends AppCompatActivity {
         AddStudentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LogInActivity.this,AddStudentToDB.class));
+                startActivity(new Intent(LogInActivity.this, AddStudentToDB.class));
             }
         });
 
@@ -51,30 +51,32 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String LogInTextViewText = LogInEditText.getText().toString().trim();
-                for (int i = 0; i <studentsList.size() ; i++) {
-                    if(Objects.equals(LogInTextViewText, studentsList.get(i).getMstudent_id().toString())){ // --> true)){
+                for (int i = 0; i < studentsList.size(); i++) {
+                    if (Objects.equals(LogInTextViewText, studentsList.get(i).getMstudent_id().toString())) { // --> true)){
 
                         Toast.makeText(LogInActivity.this, "We found you in DataBase", Toast.LENGTH_SHORT).show();
                         setFirstTimeStartStatus(false);
-                        startActivity(new Intent(LogInActivity.this,Scan_Activity.class));
-                    }else{
-                        Toast.makeText(LogInActivity.this, "false  \n"+LogInTextViewText + " \n" + studentsList.get(i).getmStudentNmae().toString() + " \n"+ studentsList.get(i).getMstudent_id().toString(), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LogInActivity.this, Scan_Activity.class));
+                    } else {
+                        Toast.makeText(LogInActivity.this, "false  \n" + LogInTextViewText + " \n" + studentsList.get(i).getmStudentNmae().toString() + " \n" + studentsList.get(i).getMstudent_id().toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
             }
         });
     }
-        //==========================================================================================
-        private boolean isFirstTimeStartApp(){
-            SharedPreferences pref = getApplicationContext().getSharedPreferences("LogInActivity", Context.MODE_PRIVATE);
-            return pref.getBoolean("FirstTimeStartFlag",true);
-        }
-        private void setFirstTimeStartStatus(boolean stt){
-            SharedPreferences pref = getApplicationContext().getSharedPreferences("LogInActivity", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean("FirstTimeStartFlag",stt);
-            editor.commit();
-        }
-        //==========================================================================================
+
+    //==========================================================================================
+    private boolean isFirstTimeStartApp() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("LogInActivity", Context.MODE_PRIVATE);
+        return pref.getBoolean("FirstTimeStartFlag", true);
+    }
+
+    private void setFirstTimeStartStatus(boolean stt) {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("LogInActivity", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("FirstTimeStartFlag", stt);
+        editor.commit();
+    }
+    //==========================================================================================
 }
