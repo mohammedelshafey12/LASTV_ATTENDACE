@@ -24,7 +24,7 @@ public class Scan_Activity extends AppCompatActivity implements ZXingScannerView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_);
 
-
+//gfgggggggg
         if((int) Build.VERSION.SDK_INT>=23){
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
