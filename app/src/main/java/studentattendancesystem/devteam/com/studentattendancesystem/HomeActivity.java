@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-            //kjjkkj
+            //kjjkkjyuguyguugug
         arrayList = new ArrayList();
         dBconnections = new DBconnections(this);
         tvnames = (TextView) findViewById(R.id.tvnames);
