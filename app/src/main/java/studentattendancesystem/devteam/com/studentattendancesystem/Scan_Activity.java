@@ -24,10 +24,7 @@ public class Scan_Activity extends AppCompatActivity implements ZXingScannerView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_);
 
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void scan(View view) {
         if((int) Build.VERSION.SDK_INT>=23){
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -40,6 +37,12 @@ public class Scan_Activity extends AppCompatActivity implements ZXingScannerView
                 return;
             }
         }
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void scan(View view) {
+
 
         zXingScannerView = new ZXingScannerView(getApplicationContext());
         setContentView(zXingScannerView);
